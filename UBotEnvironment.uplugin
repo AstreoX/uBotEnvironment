@@ -1,0 +1,43 @@
+{
+    "FileVersion": 3,
+    "Version": 1,
+    "VersionName": "0.1.0",
+    "FriendlyName": "uBot Environment",
+    "Description": "Shared environment wind for uBot: uniform steady wind and deterministic seeded gusts, actor and scripted sources, sampled on the uBot simulation clock.",
+    "Category": "uBot",
+    "CreatedBy": "AstreoX",
+    "CreatedByURL": "https://github.com/AstreoX",
+    "DocsURL": "https://github.com/AstreoX/uBotEnvironment",
+    "CanContainContent": false,
+    "EnabledByDefault": false,
+    "IsBetaVersion": true,
+    "Plugins": [
+        {
+            "Name": "UBotCore",
+            "Enabled": true
+        }
+    ],
+    "Modules": [
+        {
+            "Name": "UBotEnvironment",
+            "Type": "Runtime",
+            "LoadingPhase": "Default"
+        }
+    ],
+    "UBot": {
+        "Layer": "Capability",
+        "Repository": "https://github.com/AstreoX/uBotEnvironment.git",
+        "Requires": [
+            {
+                "Name": "UBotCore",
+                "Version": "^0.1.4"
+            }
+        ],
+        "Provides": [
+            "Env.Wind"
+        ],
+        "Tags": [
+            "environment"
+        ]
+    }
+}
