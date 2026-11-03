@@ -25,6 +25,8 @@ Unreal Engine 5.5 机器人仿真的共享风场插件，依赖 uBotCore 0.1.4 �
 
 `UUBotWindSubsystem` 实现 uBotCore 的 `IUBotWindProvider`，并向所属世界的 `UUBotWindQuerySubsystem` 注册。使用风的插件只需依赖 uBotCore，按自己的仿真时刻查询；没有风提供者时返回零风速。各世界的风源互相隔离。
 
+Core 查询只保存一个提供者的弱引用，本插件负责风的生成和风源叠加，使用者负责响应，无需单独的连接插件。其他环境效果应先复用已有契约：感知介质可以实现 `IUBotPerceptionMedium`，由 uBotSensor 已有逻辑读取。这是接入约定，当前版本尚未实现烟雾或雾。见[环境架构约定](https://astreox.github.io/uBotDocs/develop/package-authoring/#环境与使用者的职责边界)。
+
 当前不模拟局部风区、空间湍流、地形或建筑物绕流、旋翼尾流。本插件提供风速，受风对象自行计算物理响应。
 
 ## 从 uBotAerial 迁移

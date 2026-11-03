@@ -25,6 +25,8 @@ Use **Set Wind Settings** and **Set Wind Enabled** to change an actor at run tim
 
 `UUBotWindSubsystem` implements uBotCore's `IUBotWindProvider` and registers with the current world's `UUBotWindQuerySubsystem`. Consumers depend only on uBotCore and query that subsystem at their own simulation time. Without a wind provider, it returns zero. Each world has its own sources.
 
+The Core query keeps one weak provider reference; this plugin owns wind generation and source addition. Consumers own their response, so no separate connector plugin is needed. Other environmental effects should reuse existing contracts: perception media can implement `IUBotPerceptionMedium`, which uBotSensor already reads. This is an integration rule, not an implementation of smoke or fog in this version. See the [environment architecture contract](https://astreox.github.io/uBotDocs/develop/package-authoring/#环境与使用者的职责边界).
+
 The field does not model local wind zones, spatial turbulence, terrain or building effects, or rotor wakes. This plugin supplies wind velocity; consumers implement their own physical response.
 
 ## Migrating wind from uBotAerial
