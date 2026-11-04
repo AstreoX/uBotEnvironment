@@ -9,7 +9,9 @@
 
 [English](README.md)
 
-Unreal Engine 5.5 机器人仿真的共享风场插件，依赖 uBotCore 0.1.4 及以上的 0.1 系列版本，不依赖 uBotAerial。
+Unreal Engine 5.5 机器人仿真的共享风场插件。尚未发布的 0.2.0 源码要求 uBotCore `^0.2.0`，不依赖 uBotAerial，暂不能通过 uBot Manager 安装。
+
+所有依赖模块须统一重编，不能混用 0.1.x 与 0.2.0 DLL，见 [Core API 迁移](https://astreox.github.io/uBotDocs/develop/migration/#core-旧-ros-api-迁移020-开发版)。
 
 ## 风场
 

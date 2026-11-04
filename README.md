@@ -9,7 +9,9 @@
 
 [简体中文](README.zh-CN.md)
 
-Shared wind for robotics simulation in Unreal Engine 5.5. This plugin depends on uBotCore 0.1.4 or later in the 0.1 series. It has no dependency on uBotAerial.
+Shared wind for robotics simulation in Unreal Engine 5.5. The unreleased 0.2.0 source requires uBotCore `^0.2.0` and has no dependency on uBotAerial. It is not yet installable through uBot Manager.
+
+Rebuild all dependent modules together; do not mix 0.1.x DLLs with 0.2.0. See [Core API migration](https://astreox.github.io/uBotDocs/develop/migration/#core-旧-ros-api-迁移020-开发版).
 
 ## Wind
 
