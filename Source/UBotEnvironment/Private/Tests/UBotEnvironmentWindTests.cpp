@@ -101,26 +101,26 @@ bool FUBotEnvironmentWindSourcesTest::RunTest(const FString& Parameters)
     return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUBotEnvironmentWindCoreQueryTest, "UBotEnvironment.Wind.CoreQuery", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUBotEnvironmentWindProviderQueryTest, "UBotEnvironment.Wind.ProviderQuery", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 
-bool FUBotEnvironmentWindCoreQueryTest::RunTest(const FString& Parameters)
+bool FUBotEnvironmentWindProviderQueryTest::RunTest(const FString& Parameters)
 {
     using namespace UBotEnvironmentTests;
     FScopedEnvironmentTestWorld Scope;
     UUBotWindSubsystem* Wind = Scope.Get()->GetSubsystem<UUBotWindSubsystem>();
     UUBotWindQuerySubsystem* Query = Scope.Get()->GetSubsystem<UUBotWindQuerySubsystem>();
-    if (!TestNotNull(TEXT("Environment wind"), Wind) || !TestNotNull(TEXT("Core query"), Query))
+    if (!TestNotNull(TEXT("Environment wind"), Wind) || !TestNotNull(TEXT("Environment query"), Query))
     {
         return false;
     }
-    TestTrue(TEXT("Core route is calm initially"), Query->GetWindVelocity(FVector::ZeroVector, 0.0).IsZero());
+    TestTrue(TEXT("Query route is calm initially"), Query->GetWindVelocity(FVector::ZeroVector, 0.0).IsZero());
 
     AUBotWind* Actor = SpawnWind(Scope, MakeWind(FVector(2.0, -1.0, 0.5), FVector(0.5, 0.2, 0.1), 42));
     Wind->SetScriptedWind(MakeWind(FVector(-0.2, 0.3, 0.0), FVector(0.1, 0.0, 0.2), 17));
     for (const double Time : {0.0, 0.125, 7.0, 37.2})
     {
         const FVector Expected = Wind->GetWindVelocity(FVector::ZeroVector, Time);
-        TestTrue(TEXT("Provider automatically supplies the Core query"), Query->GetWindVelocity(FVector::ZeroVector, Time) == Expected);
+        TestTrue(TEXT("Provider automatically supplies the query subsystem"), Query->GetWindVelocity(FVector::ZeroVector, Time) == Expected);
         TestTrue(TEXT("Uniform wind at another location"), Query->GetWindVelocity(FVector(12000.0, -8000.0, 15000.0), Time) == Expected);
     }
 
@@ -130,9 +130,9 @@ bool FUBotEnvironmentWindCoreQueryTest::RunTest(const FString& Parameters)
     TestTrue(TEXT("A source registers once"), Query->GetWindVelocity(FVector::ZeroVector, 2.0) == Once);
     Actor->SetWindSettings(MakeWind(FVector(4.0, 0.0, 0.0)));
     Wind->SetScriptedWind(FUBotWindSettings(), false);
-    TestTrue(TEXT("Core route observes changed actor settings"), Query->GetWindVelocity(FVector::ZeroVector, 2.0).Equals(FVector(4.0, 0.0, 0.0), 1e-12));
+    TestTrue(TEXT("Query route observes changed actor settings"), Query->GetWindVelocity(FVector::ZeroVector, 2.0).Equals(FVector(4.0, 0.0, 0.0), 1e-12));
     Actor->Destroy();
-    TestTrue(TEXT("Destroyed actor is removed from the Core route"), Query->GetWindVelocity(FVector::ZeroVector, 2.0).IsZero());
+    TestTrue(TEXT("Destroyed actor is removed from the query route"), Query->GetWindVelocity(FVector::ZeroVector, 2.0).IsZero());
     return true;
 }
 
